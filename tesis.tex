@@ -15,6 +15,7 @@
 \usepackage{amsthm}
 \usepackage{etoolbox}
 \usepackage{titlesec}
+\usepackage{hyperref}
 
 
 % --- Paquetes tikz ---
@@ -148,7 +149,6 @@ T_g \circ T_h = T_{goh}, \quad T_e = \mathbb{I}_M
 \]
 Decimos que el sistema es discreto si $G = \mathbb{N}_0$ o $G=\mathbb{Z}$, y continuo si $G = \mathbb{R}$ o $G = \mathbb{R^+}$.
 \end{definition}
-\textcolor{blue}{Ejemplo de sistema semi: flujo de una ecuación con retardo}
 Esta definición, como puede verse, es bastante general y no demasiado intuitiva para aplicarla en el ``mundo real'', donde la acción del tiempo se suele describir mediante un flujo continuo generado por una ecuación diferencial.
 \\
 \\
@@ -218,34 +218,34 @@ Notar que estabilidad no implica estabilidad asintótica.
 \subsubsection{Órbitas}
 Una órbita es, informalmente, el camino que sigue un punto del sistema a medida que evoluciona en el tiempo. Formalmente,
 \begin{definition}
-    Definimos a la órbita de $x$ como $\gamma(x) \coloneqq \Phi(I_x \times \{x\}) \subseteq M$, a la forward orbit como $\gamma_+(x) \coloneqq \Phi((0,T_+(x)),x)$ y a la backward orbit como $\gamma_-(x) \coloneqq \Phi((0,T_-(x)),x)$.
+    Definimos a la órbita de $x$ como $O(x) \coloneqq \Phi(I_x \times \{x\}) \subseteq M$, a la forward orbit como $O_+(x) \coloneqq \Phi((0,T_+(x)),x)$ y a la backward orbit como $O_-(x) \coloneqq \Phi((0,T_-(x)),x)$.
 \end{definition}
-Es claro que $\gamma(x) = \gamma_\_(x) \cup \{x\} \cup \gamma_+(x)$.
+Es claro que $O(x) = O_\_(x) \cup \{x\} \cup O_+(x)$.
 \begin{proposition}    
-Si $y \in \gamma(x)$, entonces $\gamma(x) = \gamma(y)$.
+Si $y \in O(x)$, entonces $O(x) = O(y)$.
 \end{proposition}
 \begin{proof}
-    Supongamos $y \in \gamma(x)$, es decir, $y = \Phi(t,x)$ para algún $t$.
+    Supongamos $y \in O(x)$, es decir, $y = \Phi(t,x)$ para algún $t$.
     \\
-    Queremos ver que $\gamma(x) \subseteq \gamma(y)$ y que $\gamma(y) \subseteq \gamma(x)$.
+    Queremos ver que $O(x) \subseteq O(y)$ y que $O(y) \subseteq O(x)$.
     \\
     \\
-    Dado $z \in \gamma(x)$, existe algún $s$ tal que $z = \Phi(s,x)$.
+    Dado $z \in O(x)$, existe algún $s$ tal que $z = \Phi(s,x)$.
     \\
     Por las propiedades del flujo, vale que
     \[
-    z \quad = \Phi(s,x) = \Phi(s-t+t, x) = \Phi(s-t, \Phi(t,x)) = \Phi(s-t, y) \quad \in \gamma(y)
+    z \quad = \Phi(s,x) = \Phi(s-t+t, x) = \Phi(s-t, \Phi(t,x)) = \Phi(s-t, y) \quad \in O(y)
     \]
-    Análogamente, dado $w \in \gamma(y)$, existe algún $u$ tal que $w = \Phi(u,y)$.
+    Análogamente, dado $w \in O(y)$, existe algún $u$ tal que $w = \Phi(u,y)$.
     \\
     Y vale que
     \[
-    w \quad = \Phi(u,y) = \Phi(u, \Phi(t,x)) = \Phi(u+t,x) \quad \in \gamma(x)
+    w \quad = \Phi(u,y) = \Phi(u, \Phi(t,x)) = \Phi(u+t,x) \quad \in O(x)
     \]
 \end{proof}
-Definimos en $M$ la relación dada por coincidencia de órbitas, es decir, $x \simeq_M y$ si y sólo si $\gamma(x) = \gamma(y)$.
+Definimos en $M$ la relación dada por coincidencia de órbitas, es decir, $x \simeq_M y$ si y sólo si $O(x) = O(y)$.
 \begin{definition}
-    Decimos que $x \in M$ es un punto fijo de $\Phi$ si $\gamma(x) = \{x\}$, y que es regular si no.
+    Decimos que $x \in M$ es un punto fijo de $\Phi$ si $O(x) = \{x\}$, y que es regular si no.
 \end{definition}
 \begin{definition}
     Decimos que $x \in M$ es un punto periódico de $\Phi$ si existe $t > 0$ tal que $\Phi(t,x) = x$.
@@ -256,7 +256,7 @@ Definimos en $M$ la relación dada por coincidencia de órbitas, es decir, $x \s
 Por continuidad de $\Phi$, vale que $\Phi(T(x),x) = x$. Y por la propiedad del flujo, para todo $t$ vale que $\Phi(t + T(x), x) = \Phi(t,x)$.
 \\
 \\
-En particular, una órbita es \textit{periódica} si uno (y, en consecuencia, todos) de sus puntos es periódico, y no es difícil ver que $x$ es periódico si y sólo si $\gamma_+(x) \, \cap \, \gamma_-(x) \neq \emptyset$.
+En particular, una órbita es \textit{periódica} si uno (y, en consecuencia, todos) de sus puntos es periódico, y no es difícil ver que $x$ es periódico si y sólo si $O_+(x) \, \cap \, O_-(x) \neq \emptyset$.
 \\
 \\
 Es claro, además, que un punto periódico es completo. El sistema es completo si todos sus puntos lo son. En este caso, $\Phi$ está definida globalmente, es decir, $W = \mathbb{R} \times M$.
@@ -265,32 +265,32 @@ Es claro, además, que un punto periódico es completo. El sistema es completo s
 \subsubsection{Conjuntos invariantes, conjuntos límite, conjuntos de atracción y atractores}
 Queremos entender el comportamiento del flujo de una ecuación diferencial (la cual asumiremos $\pm$-completa) en un largo período de tiempo, y así saber el destino de los puntos que empiezan en algún conjunto $U$.
 \begin{definition}
-    Un conjunto $U \subseteq M$ es $\sigma$\textit{-invariante} si para todo  $x \in U$ vale que $\gamma_\sigma(x) \subseteq U$. Es \textit{invariante} si es $\pm$-invariante, es decir, para todo $x \in U$ es $\gamma(x) \in U$.
+    Un conjunto $U \subseteq M$ es $\sigma$\textit{-invariante} si para todo  $x \in U$ vale que $O_\sigma(x) \subseteq U$. Es \textit{invariante} si es $\pm$-invariante, es decir, para todo $x \in U$ es $O(x) \in U$.
 \end{definition}
 \begin{definition}
     El \textit{conjunto límite} $\omega_\pm(x)$ de un punto $x \in M$ es el conjunto de puntos $y \in M$ para los que existe una sucesión $t_n \rightarrow \pm\infty$ tal que $\Phi(t_n,x) \rightarrow y$.
 \end{definition}
 Vale que $\omega_\pm(x)$ es un conjunto invariante y cerrado, y que es vacío a menos que $x$ sea $\pm$-completo.
 \begin{proposition}
-     Si $y \in \gamma(x)$, $\omega_{\pm}(x) = \omega_{\pm}(y)$.
+     Si $y \in O(x)$, $\omega_{\pm}(x) = \omega_{\pm}(y)$.
 \end{proposition}
 \begin{proof}
-    Sea $y \in \gamma(x)$. Queremos ver que $\omega_{\pm}(x) = \omega_{\pm}(y)$, es decir, que $\omega_{\pm}(y) \subseteq \omega_{\pm}(x)$ y que $\omega_{\pm}(x) \subseteq \omega_{\pm}(y)$.
+    Sea $y \in O(x)$. Queremos ver que $\omega_{\pm}(x) = \omega_{\pm}(y)$, es decir, que $\omega_{\pm}(y) \subseteq \omega_{\pm}(x)$ y que $\omega_{\pm}(x) \subseteq \omega_{\pm}(y)$.
     \\
     \\
-    Consideremos entonces $z \in \omega_{\pm}(y)$ y veamos que $z \in \omega_{\pm}(x)$. Como $y \in \gamma(x)$, vale que $\Phi(t,x) = y$ para algún $t$. Como $z \in \omega_{\pm}(y)$, hay una sucesión $t_n \rightarrow \pm \infty$ tal que $\Phi(t_n, y) \rightarrow z$.
+    Consideremos entonces $z \in \omega_{\pm}(y)$ y veamos que $z \in \omega_{\pm}(x)$. Como $y \in O(x)$, vale que $\Phi(t,x) = y$ para algún $t$. Como $z \in \omega_{\pm}(y)$, hay una sucesión $t_n \rightarrow \pm \infty$ tal que $\Phi(t_n, y) \rightarrow z$.
     \\
     \\
     Para cada $n$, vale que $\Phi(t_n,y) = \Phi(t_n, \Phi(t,x)) = \Phi(t_n+t,x)$. Luego la sucesión $t_n + t \rightarrow \pm\infty$ es tal que $\Phi(t_n+t,x) \rightarrow z$. Es decir, $z \in \omega_{\pm}(x)$, y por lo tanto $\omega_{\pm}(y) \subseteq \omega_{\pm}(x)$.
     \\
     \\
-    Que $\omega_{\pm}(x) \subseteq \omega_{\pm}(y)$ es análogo, pues $y \in \gamma(x)$ implica que $x \in \gamma(y)$.
+    Que $\omega_{\pm}(x) \subseteq \omega_{\pm}(y)$ es análogo, pues $y \in O(x)$ implica que $x \in O(y)$.
 \end{proof}
 Dado un conjunto $X \subseteq M$, es claro que el conjunto 
 \[
-\gamma_{+}(X) = \displaystyle \bigcup_{t>0} \Phi(t,X) = \bigcup_{x \in X} \gamma_+(x)
+O_{+}(X) = \displaystyle \bigcup_{t>0} \Phi(t,X) = \bigcup_{x \in X} O_+(x)
 \]
-es un conjunto $+$-invariante por definición. En particular, la clausura $\overline{\gamma_{+}(X)}$ es un conjunto cerrado $+$-invariante. Lo mismo vale para el análogo $\gamma_-(X)$.
+es un conjunto $+$-invariante por definición. En particular, la clausura $\overline{O_{+}(X)}$ es un conjunto cerrado $+$-invariante. Lo mismo vale para el análogo $O_-(X)$.
 \\
 \\
 A continuación, definiremos los conjuntos estable e inestable de un conjunto invariante y conjuntos de atracción.
@@ -363,7 +363,7 @@ Algunos resultados sobre conjuntos topológicamente transitivos:
     \\
     Sean entonces $x \in \Lambda$ y $V \subseteq \Lambda$ un entorno de $x$. Queremos ver que $x \in L$.
     \\
-    Por la transitividad topológica de $\Lambda$, dado $U \subseteq L$ abierto existe un $t$ tal que $\Phi(t, U) \cap V \neq \emptyset$. Es decir, existen $u \in U$ y $v \in V$ tales que $\Phi(t,u) = v$, y por lo tanto $v \in \gamma(u)$. Como $L$ es invariante, $\gamma(u) \subseteq L$, lo que implica que $v \in L$.
+    Por la transitividad topológica de $\Lambda$, dado $U \subseteq L$ abierto existe un $t$ tal que $\Phi(t, U) \cap V \neq \emptyset$. Es decir, existen $u \in U$ y $v \in V$ tales que $\Phi(t,u) = v$, y por lo tanto $v \in O(u)$. Como $L$ es invariante, $O(u) \subseteq L$, lo que implica que $v \in L$.
     \\
     \\
     Considerando una sucesión $\{V_n\}_n$ de entornos de $x$ cada vez más chicos, obtenemos una sucesión de puntos $(v_n)_n \subseteq L$ que tiende a $x$. Luego $x \in \overline{L}$ y como $L$ es cerrado, resulta $x \in L$.
@@ -372,12 +372,12 @@ Algunos resultados sobre conjuntos topológicamente transitivos:
     $\Lambda$ es topológicamente transitivo si y sólo si contiene una órbita densa.
 \end{proposition}
 \begin{proof}
-    $\Leftarrow)$ Sea $\gamma(x) \subseteq \Lambda$ una órbita densa.
+    $\Leftarrow)$ Sea $O(x) \subseteq \Lambda$ una órbita densa.
     \\
     Queremos ver que, dados $U, V \subseteq \Lambda$ abiertos, existe un $t$ tal que $\Phi(t,U) \cap V \neq \emptyset$.
     \\
     \\
-    Como $U, V$ son abiertos y $\gamma(x)$ densa, vale que $\gamma(x) \cap U \neq \emptyset$ y que $\gamma(x) \cap V \neq \emptyset$.
+    Como $U, V$ son abiertos y $O(x)$ densa, vale que $O(x) \cap U \neq \emptyset$ y que $O(x) \cap V \neq \emptyset$.
     \\
     Es decir, que existen $t_1$ tal que $y = \Phi(t_1,x) \in U$, $t_2$ tal que $z =\Phi(t_2,x) \in V$.
     \\
@@ -395,20 +395,20 @@ Algunos resultados sobre conjuntos topológicamente transitivos:
     \\
     $\Rightarrow)$ Supongamos que $\Lambda$ es topológicamente transitivo. 
     \\
-    Queremos ver que el conjunto $\{x \in \Lambda: \gamma(x) \text{ es densa}\}$ es no vacío.
+    Queremos ver que el conjunto $\{x \in \Lambda: O(x) \text{ es densa}\}$ es no vacío.
     \\
     \\
-    Como estamos en $\mathbb{R}^n$, existe $\{L_n\}_n$ una base numerable de abiertos de $\Lambda$. Para cada $n$, definimos $A_n = \{x \in \Lambda : \gamma(x) \, \cap \, L_n \neq \emptyset\}$.
+    Como estamos en $\mathbb{R}^n$, existe $\{L_n\}_n$ una base numerable de abiertos de $\Lambda$. Para cada $n$, definimos $A_n = \{x \in \Lambda : O(x) \, \cap \, L_n \neq \emptyset\}$.
     \\
     \\
-    Si vemos que $A \coloneqq \displaystyle \bigcap_n A_n$ es no vacía, entonces existe $x_0 \in \Lambda$ tal que para todo $n$ es $\gamma(x_0) \cap L_n \neq \emptyset$. Como $\{L_n\}_n$ es una base de abiertos, $\gamma(x_0)$ es densa.
+    Si vemos que $A \coloneqq \displaystyle \bigcap_n A_n$ es no vacía, entonces existe $x_0 \in \Lambda$ tal que para todo $n$ es $O(x_0) \cap L_n \neq \emptyset$. Como $\{L_n\}_n$ es una base de abiertos, $O(x_0)$ es densa.
     \\
     Por el teorema de Baire, basta ver que los $A_n$ son abiertos densos.
     \\
     \\
     En primer lugar, como los $L_n$ son abiertos y el flujo es continuo, los $A_n$ resultan abiertos. 
     \\
-    Veamos que son densos: dados $U \subseteq \Lambda$ abierto y $n \in \mathbb{N}$, queremos ver que $U \cap A_n$ es no vacía, es decir, que existe $x \in U$ tal que $\gamma(x) \cap L_n$ es no vacía. En efecto, como $\Lambda$ es topológicamente transitivo, existe un $t$ tal que $\Phi(t,U) \cap L_n \neq \emptyset$, es decir, un $x \in U$ tal que $\Phi(t, x) \cap L_n \neq \emptyset$, que era lo que queríamos.
+    Veamos que son densos: dados $U \subseteq \Lambda$ abierto y $n \in \mathbb{N}$, queremos ver que $U \cap A_n$ es no vacía, es decir, que existe $x \in U$ tal que $O(x) \cap L_n$ es no vacía. En efecto, como $\Lambda$ es topológicamente transitivo, existe un $t$ tal que $\Phi(t,U) \cap L_n \neq \emptyset$, es decir, un $x \in U$ tal que $\Phi(t, x) \cap L_n \neq \emptyset$, que era lo que queríamos.
 \end{proof}
 En el siguiente capítulo, estudiaremos distintas definiciones de caos y cómo se relacionan.
 \subsection{Caos}
@@ -606,10 +606,18 @@ d(f^m(x), f^m(z)) > \delta
 \]
 que era lo que queríamos.
 \end{proof}
-Queremos probar que caos en el sentido de Devaney's implica caos en el sentido de Li-Yorke. Para eso, primero enunciamos los siguientes resultados:
+Queremos probar que caos en el sentido de Devaney's implica caos en el sentido de Li-Yorke. Para eso, primero enunciamos los siguientes resultados y definiciones:
+\begin{definition}
+    Un conjunto A es nunca denso si $int(\overline{A}) = \emptyset$.
+\end{definition}
+\begin{definition}
+    Un conjunto X es de primera categoría (o magro) si puede escribirse como una unión numerable de conjuntos nunca densos.
+\end{definition}
+
 \begin{corollary}
 Si $(X,f)$ es transitivo y $X$ infinito, $AR$ es de primera categoría. Más aún, para cada $x \in X$, $AR(x)$ es de primera categoría.
 \end{corollary}
+
 \begin{lemma}
 Sea $X$ un conjunto métrico separable y completo sin puntos aislados. Sea $R$ una relación simétrica tal que existe un subconjunto $A \subseteq X$ que es $G_\delta$ denso y tal que para todo $x \in A$, $R(x)$ contiene un subconjunto $G_\delta$ denso. Entonces existe un subconjunto $B \subseteq X$ denso no numerable tal que $(B \times B) \setminus \triangle \subseteq R$. 
 \end{lemma}
@@ -664,7 +672,7 @@ Luego $B$ resulta un conjunto revuelto no numerable para $f$ por definición, pu
 Supongamos ahora que tenemos un punto periódico de período $n>1$, es decir, $f^n(p) = p$. Es claro que entonces $p$ es un punto fijo de $f^n$.
 \\
 \\
-Recordemos que, si $x \in \textit{Tran}_f$, vale que $\omega(x,f) = X$. Dado $x \in \textit{Tran}_f$, para cada $0 \leq i \leq n-1$ definimos $D_i = \omega(f^i(x), f^n) = \{z \in X : f^{nk}(f^i(x)) \xrightarrow{k} z\}$, el conjunto límite del punto $f
+Recordemos que, si $x \in \textit{Tran}_f$, vale que $\omega(x,f) = X$. Dado $x \in \textit{Tran}_f$, para cada $0 \leq i \leq n-1$ definimos $D_i = \omega(f^i(x), f^n) = \{z \in X : f^{nk}(f^i(x)) \xrightarrow{k} z\} = \{z \in X : (\exists k_j \rightarrow \infty : f^{(nk_j + i)}(x) \rightarrow z) \}$, el conjunto límite del punto $f
 ^i(x)$ bajo $f^n$.
 \\
 Notar que, para cada $i$, vale que $O_{f^i(x)}$ bajo $f^n$ es densa en $D_i$, que $f^n(D_i) \subseteq D_i$ y que $f(D_i) = D_{i+1 \, (mód \, n)}$.
@@ -1205,7 +1213,7 @@ Notar que, como $Y \bigsqcup X$ tiene la topología final respecto de las inclus
 \begin{definition}
 Un espacio es una \textit{celda} de dimensión $n$, o una $n$-celda, si es homeomorfo a $B^n$. A una $n$-celda la notamos $e^n$.
 \end{definition}
-Sean $X = \mathbb{D}^n$, $A = \partial \mathbb{D}^n = \mathbb{S}^{n-1}$. Sea $f: \partial \mathbb{D}^n \rightarrow Y$ una función continua. Decimos que el espacio de adjunción $Y \cup_f \mathbb{D}^n$ se obtiene de $Y$ \textit{adjuntándole una $n$-celda}, y lo notamos $Y \cup e^n$:
+Sean $X = \mathbb{D}^n$ el disco relleno de dimensión $n$, $A = \partial \mathbb{D}^n = \mathbb{S}^{n-1}$. Sea $f: \partial \mathbb{D}^n \rightarrow Y$ una función continua. Decimos que el espacio de adjunción $Y \cup_f \mathbb{D}^n$ se obtiene de $Y$ \textit{adjuntándole una $n$-celda}, y lo notamos $Y \cup e^n$:
 \[
 \begin{tikzcd}
 \mathbb{S}^{n-1} \arrow[r, "f"] \arrow[d, "i"] & Y \arrow[d, "\overline{i}"] \\
@@ -1784,6 +1792,10 @@ Sean $(X,d_X)$, $(Y, d_Y)$ espacios métricos compactos. Entonces:
 \end{theorem}
 
 Esto quiere decir que, si la muestra del espacio es ``buena'', la estimación de su homología también lo será. Necesitamos entonces resultados que nos aseguren cuándo nuestra muestra lo es:
+\begin{definition}
+    Dado $X \subseteq \mathbb{R}^m$, definimos el $reach(X) = \displaystyle \inf_{z \in \text{Med}(X)} d(z, X)$, donde $\text{Med}(X)$ es su eje medial.
+\end{definition}
+
 \begin{proposition}
     Sea $X$ una subvariedad compacta de $\mathbb{R}^m$, $\{X_n\}_n$ una muestra aleatoria independiente e idénticamente distribuida respecto de la probabilidad uniforme de $X$. Si $\delta>0$ y $\varepsilon < \text{reach}(X)/2$, entonces $n$ ``suficientemente grande'' implica que $d_H(X_n, X) < \varepsilon/2$ con probabilidad mayor a $1 - \delta$.
 \end{proposition}
@@ -1814,10 +1826,10 @@ Notar que, por un lado, no tenemos $\Phi$ sino un conjunto de datos pertenecient
 Para sortear estos problemas, consideraremos \textit{thickenings} de $\gamma$ en el espacio tangente.
 \subsection{Espacio tangente y \textit{r}-thickenings}
 \begin{definition}
-    Dado $r \geq 0$ y $A$ un subconjunto de un espacio métrico $(X,d_X)$, definimos el r-thickening de $A$ como $Or(A) = \{ x \in X : d_X(x,A) < r \}$.
+    Dado $r \geq 0$ y $A$ un subconjunto de un espacio métrico $(X,d_X)$, definimos el r-thickening de $A$ como $O_r(A) = \{ x \in X : d_X(x,A) < r \}$.
 \end{definition}
 \begin{definition}
-    Dado $X \subseteq \mathbb{R}^d$, definimos su espacio tangente $T(X) = \{(x,v) \in X \times \mathbb{R}^d : v \text{ es el vector tangente de } x\}$. \textcolor{blue}{Ah, acá estaba igual :)}
+    Dado $X \subseteq \mathbb{R}^d$, definimos su espacio tangente $T(X) = \{(x,v) \in X \times \mathbb{R}^d : v \text{ es el vector tangente de } x\}$.
 \end{definition}
 Notar que el espacio tangente nos permite recuperar, además de la espacial, la información direccional del conjunto. Y como sólo nos interesa la dirección de $v$ y no su rapidez, podemos normalizar los vectores y pasar al \textit{espacio tangente unitario}.
 \begin{definition}
@@ -1838,52 +1850,6 @@ Así, si $\gamma$ es un subsegmento de nuestra serie de tiempo $\Gamma$, queremo
 para cierto $C > 0$ \textit{adecuado}.
 \\
 \\
-\subsubsection*{La importancia del radio de thickening y el espacio tangente, descripción gráfica}
-En primer lugar, supongamos que estamos analizando el siguiente subsegmento perteneciente a la serie de tiempo del atractor de double-well:
-\\
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\linewidth]{segmentsDifferentR-doubleWell_paper.png}
-\end{figure}
-Es claro que $r$ pequeños nos llevan a subsegmentos de rango 0, mientras que $r$ más grandes nos llevan a rango 1. Con el $r$ de la figura izquierda, no detectaríamos ese subsegmento como periódico. Pero con el $r$ de la derecha, sí.
-\\
-\\
-En particular, hay un umbral $\overline{r}$ tal que
-\[
-\text{dim}(\text{Cyc}_r(\gamma,Y)) = 
-\begin{cases}
-    0 & \text{si } r < \overline{r} \\
-    1 & \text{si } \overline{r} < r < r_0(Y)
-\end{cases}
-\]
-En segundo lugar, supongamos que estamos analizando una elipse $E = \{x \in \mathbb{R}^2 : (x_1/a)^2 + (x_2/b)^2 = 1\}$, con $b < a$. En $\mathbb{R}^2$ con la métrica inducida por la norma euclídea, tenemos que
-\[
-H_1(O_r(E)) =
-\begin{cases}
-\mathbb{F} & \text{si } 0 \leq r < b \\
-0  & \text{en otro caso}
-\end{cases}
-\]
-Notar que, aún habiendo considerado un objeto que es una órbita periódica en sí, si $b$ es mucho más chico que $a$ sólo $r$-s muy pequeños conducen a $H_1$ no trivial. Esto es un problema si pasamos a una muestra de una serie de tiempo de la elipse, pues podríamos no sólo no ser capaces de distinguir características relevantes homológicamente, sino también haber introducido algunas al generar la muestra.
-\\
-\\
-Lo que quisiéramos es detectar un solo ciclo, que corresponde al segmento formado por todos los puntos de la muestra. Sin embargo, al observar la siguiente figura puede verse que muchos segmentos $\gamma$ obtenidos de la muestra de la elipse parecen cumplir con el criterio $H_1(O_r(\gamma)) \neq 0$. Por ejemplo, hubiéramos erróneamente detectado el segmento marcado en azul oscuro como un ciclo.
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}[t]{0.4\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{elipseExample_paper.png}
-    \end{subfigure}
-    \begin{subfigure}[t]{0.4\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{elipseExample.png}
-    \end{subfigure}
-\end{figure}
-Si pasamos al espacio tangente, recuperamos la dinámica natural de los segmentos, porque la distancia entre dos puntos consecutivos resulta siempre más chica que la de dos puntos opuestos en la elipse.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.4\linewidth]{elipseWithVelocitiesExample_paper.png}
-\end{figure}
 En la siguiente sección definiremos el \textit{espacio de comparación}, que será el espacio en el que miraremos a nuestra serie de tiempo.
 \subsection{El espacio de comparación y el espacio de comparación cúbico}
 Queremos construir un espacio en el que tenga sentido ``mirar'' a nuestra serie de tiempo. Definimos, entonces, el \textit{espacio de comparación} de la siguiente manera:
@@ -1990,7 +1956,10 @@ Estamos en condiciones, entonces, de dar la definición de cycling signature:
 \begin{definition}
     Dado un subsegmento $\gamma \in \Gamma$ y un espacio de comparación $Y$, definimos a la cycling signature $Cyc(\gamma, Y)$ como la filtración de espacios vectoriales $\text{im}(H_1(i_\gamma)) \leq H_1(\triangle Y)$.
 \end{definition}
-Es claro que lo que quisiéramos es poder calcular la imagen del morfismo $H_1(i_\gamma)$. Sin embargo, como ya sabemos que eso es difícil computacionalmente, vamos a usar complejos simpliciales para discretizar los \textit{r}-thickenings de los subsegmentos, y los espacios de comparación cúbicos para construir los espacios de comparación correspondientes: dado $Y = \eta^{-1}(p_\infty(|Y_\infty|))$, sabemos que el siguiente diagrama
+Es claro que lo que quisiéramos es poder calcular la imagen del morfismo $H_1(i_\gamma)$. Sin embargo, como ya sabemos que eso es difícil computacionalmente, vamos a usar complejos simpliciales para discretizar los \textit{r}-thickenings de los subsegmentos, y los espacios de comparación cúbicos para construir los espacios de comparación correspondientes.
+\\
+\\
+Para $Y = \eta^{-1}(p_\infty(|Y_\infty|))$, por \cite{cycling-sigs} sabemos que el siguiente diagrama
 \[
 \begin{tikzcd}
     H_1(O(\rho(\gamma))) \arrow[r, "H_1(i_{\gamma})"] & H_1(\triangle Y) \arrow[d, "\simeq"'] 
@@ -1998,7 +1967,7 @@ Es claro que lo que quisiéramos es poder calcular la imagen del morfismo $H_1(i
     H_1(\check{C}(\rho(\gamma))) \arrow[u, "\simeq"'] \arrow[r, "H_1(\phi)"'] & H_1(\triangle Y_\infty)
 \end{tikzcd}
 \]
-es conmutativo. \cite{cycling-sigs} Y por lo tanto nos basta con entender cómo calcular la base del morfismo $\operatorname{im}H_1(\phi)$, que es lo que veremos en el siguiente capítulo.
+es conmutativo. Y por lo tanto nos basta con entender cómo calcular la base del morfismo $\operatorname{im}H_1(\phi)$, que es lo que veremos en el siguiente capítulo.
 \newpage
 \section{Algoritmo e implementación}
 Como $H_1(\phi)$ es un morfismo entre módulos de persistencia y $H_1(\triangle Y_\infty)$ es una filtración de espacios vectoriales, por lo demostrado anteriormente sabemos que entonces $\text{im}(H_1(\phi))$ también es una filtración de espacios vectoriales y que podemos restringirnos a calcular la imagen de la parte inmortal del complejo. Es decir, queremos calcular la imagen del morfismo $H_1(\phi)|_{H_1(Č(\rho(\gamma)))^\infty}$, para lo cual utilizaremos reducción de matrices, como muestra la siguiente proposición:
@@ -2013,14 +1982,60 @@ No hay que olvidar mencionar que este cálculo requiere elegir varios parámetro
 \\
 \\
 Según los autores del paper, la idea es que $r$ controla la resolución espacial, y se elige de acuerdo a la escala típica de la dinámica, y $k$ controla la resolución angular, y se elige según cuánta sensibilidad a la dirección se necesita. Teniendo $r$ y $k$, su propuesta es definir $C = r.k$ y $r_0 = r$.
-\\
-\\
-\\
+\newpage
 \section{Experimentos}
 En el siguiente apartado analizaremos los resultados obtenidos de los experimentos realizados en el paper para calcular las cycling signatures de los atractores de Double-Well y Lorenz. 
 \\
 \\
-Pero antes, veamos la importancia del espacio de comparación usando como ejemplo el atractor de Double-Well.
+Pero antes, veamos la importancia del radio de thickening, el espacio tangente y el espacio de comparación, usando como ejemplo el atractor de Double-Well.
+\\
+\\
+\subsection{La importancia del radio de thickening y el espacio tangente, descripción gráfica}
+En primer lugar, supongamos que estamos analizando el siguiente subsegmento perteneciente a la serie de tiempo del atractor de double-well:
+\\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{segmentsDifferentR-doubleWell_paper.png}
+\end{figure}
+Es claro que $r$ pequeños nos llevan a subsegmentos de rango 0, mientras que $r$ más grandes nos llevan a rango 1. Con el $r$ de la figura izquierda, no detectaríamos ese subsegmento como periódico. Pero con el $r$ de la derecha, sí.
+\\
+\\
+En particular, hay un umbral $\overline{r}$ tal que
+\[
+\text{dim}(\text{Cyc}_r(\gamma,Y)) = 
+\begin{cases}
+    0 & \text{si } r < \overline{r} \\
+    1 & \text{si } \overline{r} < r < r_0(Y)
+\end{cases}
+\]
+En segundo lugar, supongamos que estamos analizando una elipse $E = \{x \in \mathbb{R}^2 : (x_1/a)^2 + (x_2/b)^2 = 1\}$, con $b < a$. En $\mathbb{R}^2$ con la métrica inducida por la norma euclídea, tenemos que
+\[
+H_1(O_r(E)) =
+\begin{cases}
+\mathbb{F} & \text{si } 0 \leq r < b \\
+0  & \text{en otro caso}
+\end{cases}
+\]
+Notar que, aún habiendo considerado un objeto que es una órbita periódica en sí, si $b$ es mucho más chico que $a$ sólo $r$-s muy pequeños conducen a $H_1$ no trivial. Esto es un problema si pasamos a una muestra de una serie de tiempo de la elipse, pues podríamos no sólo no ser capaces de distinguir características relevantes homológicamente, sino también haber introducido algunas al generar la muestra.
+\\
+\\
+Lo que quisiéramos es detectar un solo ciclo, que corresponde al segmento formado por todos los puntos de la muestra. Sin embargo, al observar la siguiente figura puede verse que muchos segmentos $\gamma$ obtenidos de la muestra de la elipse parecen cumplir con el criterio $H_1(O_r(\gamma)) \neq 0$. Por ejemplo, hubiéramos erróneamente detectado el segmento marcado en azul oscuro como un ciclo.
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.4\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{elipseExample_paper.png}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.4\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{elipseExample.png}
+    \end{subfigure}
+\end{figure}
+Si pasamos al espacio tangente, recuperamos la dinámica natural de los segmentos, porque la distancia entre dos puntos consecutivos resulta siempre más chica que la de dos puntos opuestos en la elipse.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\linewidth]{elipseWithVelocitiesExample_paper.png}
+\end{figure}
 \subsection{La métrica $d_C$ en el espacio de comparación}
 Como motivación, observemos primero la serie de tiempo del atractor de double-well con sus vectores tangentes:
 \begin{figure}[H]
@@ -2368,7 +2383,6 @@ U. Bauer, D. Hien, O. Junge, K. Mischaikow,
 \textit{Cycling Signatures: identifying cycling motions in time series using algebraic topology.} 2024. 
 https://arxiv.org/abs/2312.04734
 
-
 \bibitem{matchings-stability-of-barcodes}
 U. Bauer, M. Lesnick
 \textit{Induced matchings and the algebraic stability of persistence barcodes.} Journal of Computational Geometry, 2015.
@@ -2416,7 +2430,6 @@ G. Minian,
 \bibitem{munkres}
 J. R. Munkres,
 \textit{Elements of algebraic topology.} Massachusetts Institute of Technology, 1984.
-
 
 \bibitem{templex-paperchaos}
 G. D. Charó, C. Letellier, D. Sciamarella. \textit{Templex: A bridge between homologies and templates for chaotic attractors.} Chaos: An Interdisciplinary Journal of Nonlinear Science, 32(8). 2022.
